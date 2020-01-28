@@ -14,6 +14,11 @@ app.get('/sport/insert/:sportname/:name', function(req, res){
 	service.insertSport(req, res);
 });
 
+app.get('/test', function(req, res){
+	console.log("enter test insert");
+	service.testinst(req, res); 
+});
+
 // app.get('/patient/bloodgroup/:bloodgroup', function(req, res){
 // 	console.log("enter patient bloodgroup");
 // 	service.findPatientsByBloodGroup(req, res);
