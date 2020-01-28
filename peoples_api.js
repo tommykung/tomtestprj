@@ -9,6 +9,10 @@ app.get('/peoples', function(req, res){
 	// res.json({ mesage: "enter patient res"});
 });
 
+app.get('/peoples/insert/:name/:lastname/:age/:occupations', function(req, res){
+	service.insertPeoples(req,res);
+});
+
 app.get('/sport/insert/:sportname/:name', function(req, res){
 	console.log("enter sport insert");
 	service.insertSport(req, res);

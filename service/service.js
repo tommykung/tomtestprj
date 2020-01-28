@@ -50,36 +50,49 @@ module.exports.insertSport = function (req, res) {
 		db.collection('sport').insert({
 			"sportname": req.params.sportname,
 			"name": req.params.name
-		},function(err, res){
-			if (err) {
-				throw err;
-				res.send(JSON.stringify({ 
-					result: "error"	
-				}));
-			}else{
-				res.send(JSON.stringify({ 
-					result: "success"	
-				}));
-			}
+		}, function(err, res) {
+		    if (err) throw err;
+		    console.log("1 document inserted");
+		    db.close();
 		});
 	}); 
 }
 
-module.exports.testinst = function (req, res) {
-	var MongoClient = require('mongodb').MongoClient;
-	var url = "mongodb://localhost:27017/";
+module.exports.insertPeoples = function (req, res) {
+	var self_res = res;
+	mongoClient.connect('mongodb://localhost:27017', (err, client) => { 
+		if (err) throw err;
+		const db = client.db('tomproject');
+		db.collection('peoples').insert({
+			"name" : req.params.name,
+			"lastname" : req.params.lastname,
+			"age" : req.params.age,
+			"occupations" : req.params.occupations
+		}, function(err, res){
+			if (err) throw err	
+			console.log("1 people inserted");
+			self_res.send(JSON.stringify({ "result": "success" }));  
+			// db.close();
+		});
 
-	MongoClient.connect(url, function(err, db) {
-	  if (err) throw err;
-	  var dbo = db.db("mydb");
-	  var myobj = { name: "Company Inc", address: "Highway 37" };
-	  dbo.collection("customers").insertOne(myobj, function(err, res) {
-	    if (err) throw err;
-	    console.log("1 document inserted");
-	    db.close();
-	  });
 	});
 }
+
+// module.exports.testinst = function (req, res) {
+// 	var MongoClient = require('mongodb').MongoClient;
+// 	var url = "mongodb://localhost:27017/";
+
+// 	MongoClient.connect(url, function(err, db) {
+// 	  if (err) throw err;
+// 	  var dbo = db.db("mydb");
+// 	  var myobj = { name: "Company Inc", address: "Highway 37" };
+// 	  dbo.collection("customers").insertOne(myobj, function(err, res) {
+// 	    if (err) throw err;
+// 	    console.log("1 document inserted");
+// 	    db.close();
+// 	  });
+// 	});
+// }
 
 // module.exports.xxx = function () {
 	
