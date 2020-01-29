@@ -1,6 +1,5 @@
 const express = require("express"); 
-const mongoClient = require('mongodb').MongoClient;
-
+const mongoClient = require('mongodb').MongoClient; 
 
 module.exports.findTemp = function (req, res) {
 	console.log("enter patient module");
@@ -78,6 +77,63 @@ module.exports.insertPeoples = function (req, res) {
 	});
 }
 
+module.exports.findHeartrateZone = function (req, res) {
+	console.log("enter findHeartrateZone service");
+	mongoClient.connect('mongodb://localhost:27017', (err, client) => { 
+		if (err) {
+			throw err;
+			res.send(JSON.stringify({ "err": "error" }));
+		}else{	
+			const db = client.db("tomproject");
+			db.collection("heartratezone").find().toArray(function (err, result){
+				if(err) {
+					throw err;
+					res.send(JSON.stringify({ "err": "error" }));    
+				}else{	
+					res.send(JSON.stringify(result));
+				}
+			});
+		}
+	});
+}
+
+module.exports.updateOccupations = function (req, res){   
+	console.log("enter updateOccupations");
+	mongoClient.connect('mongodb://localhost:27017', (err, client) => {
+		if (err) {
+			throw err;
+			res.send(JSON.stringify({ "result": "error" }));
+		}else{
+			const db = client.db("tomproject"); 
+			db.collection("peoples").update(  
+				{ "name" : req.params.name },
+				{ $set: 
+					{
+						"occupations" : req.params.occupations   
+					}
+				}
+			);
+
+			res.send(JSON.stringify({ "result": "success" }));     
+		}
+	});
+}
+
+module.exports.removePeoplesByName = function(req, res) {
+	console.log("enter removePeoplesByName"); 
+	mongoClient.connect('mongodb://localhost:27017', (err, client) =>{
+		if (err) {
+			throw err; 
+			res.send(JSON.stringify({ "result": "error" }));
+		}else{
+			const db = client.db("tomproject");
+			db.collection("peoples").remove({ "name": req.params.name });
+			res.send(JSON.stringify({ "result": "success" }));
+		}
+	});
+}
+             
+
 // module.exports.testinst = function (req, res) {
 // 	var MongoClient = require('mongodb').MongoClient;
 // 	var url = "mongodb://localhost:27017/";
@@ -94,20 +150,6 @@ module.exports.insertPeoples = function (req, res) {
 // 	});
 // }
 
-// module.exports.xxx = function () {
-	
-// }
-
-
-// module.exports.showParams = function (req, res) {
-// 	console.log("enter showRet")
-// 	res.send(JSON.stringify({
-// 		mode: req.params.mode,
-// 		specific: req.params.specific,
-// 		environment: req.params.environment,
-// 		by: req.params.by
-// 	}))
-// }
 
 
 
