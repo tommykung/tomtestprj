@@ -4,9 +4,7 @@ const service = require('./service/service.js');
 const port = 10002;
 
 app.get('/peoples', function(req, res){
-	console.log("enter peoples");
 	service.findPeoplesInform(req, res); 
-	// res.json({ mesage: "enter patient res"});
 });
 
 app.get('/peoples/insert/:name/:lastname/:age/:occupations', function(req, res){
@@ -35,11 +33,6 @@ app.get('/test', function(req, res){
 	console.log("enter test insert");
 	service.testinst(req, res); 
 });
-
-// app.get('/patient/bloodgroup/:bloodgroup', function(req, res){
-// 	console.log("enter patient bloodgroup");
-// 	service.findPatientsByBloodGroup(req, res);
-// });
 
 // app.get('/', (req, res) => { 
 //   res.json({ message: 'temp!' })
