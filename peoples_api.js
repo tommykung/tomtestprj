@@ -34,6 +34,45 @@ app.get('/test', function(req, res){
 	service.testinst(req, res); 
 });
 
+app.get('/testfor', function(req, res){
+	console.log("enter test for");
+	service.testfor(req, res); 
+}); 
+
+app.get('/testfor2', function(req, res){
+	console.log("enter test for2");
+	service.testfor2(req, res); 
+}); 
+
+app.get('/testasync', function(req, res){
+	console.log("enter testasync");
+	service.testasync(req, res); 
+}); 
+
+app.get('/testasyncone', function(req, res){
+	console.log("enter testasyncone");
+	service.testasyncone(req, res);  
+}); 
+
+app.get('/infohospitals', function(req, res){
+	console.log("enter infohospitals");
+	service.findInfoHospitals(req, res);
+});
+
+app.get('/grpspecialties', function(req, res){
+	console.log("enter findGrpSpecialties");
+	service.findGrpSpecialties(req, res);
+});
+
+app.get('/testcovdate/:name', function(req, res){
+	console.log("enter testcovdate");
+	service.instConvDate(req, res);
+});
+
+app.get('/xxx', function(req, res){
+	console.log("enter temp");
+});
+
 // app.get('/', (req, res) => { 
 //   res.json({ message: 'temp!' })
 // })
